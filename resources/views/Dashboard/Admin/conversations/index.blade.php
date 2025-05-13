@@ -16,12 +16,33 @@
 @section('content')
 
 @foreach($conversations as $conv)
-    <div class="card mb-2">
-        <div class="card-body">
-            <strong>المحادثة رقم: {{ $conv->id }}</strong><br>
-            من: {{ $conv->sender->name }} ({{ $conv->sender->role == 1 ? 'طبيب' : 'مريض' }})<br>
-            إلى: {{ $conv->receiver->name }} ({{ $conv->receiver->role == 1 ? 'طبيب' : 'مريض' }})<br>
-            <a href="{{ route('chat.show', $conv->id) }}">عرض المحادثة</a>
+    <div class="card mb-3 shadow-sm border-0 rounded-2">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-2">
+                    <i class="fas fa-comments text-primary"></i> المحادثة رقم: {{ $conv->id }}
+                </h5>
+                <p class="mb-1">
+                    <strong>من:</strong> {{ $conv->sender->name }} 
+                    <span class="badge badge-info">{{ $conv->sender->role == 1 ? 'طبيب' : 'مريض' }}</span>
+                </p>
+                <p class="mb-2">
+                    <strong>إلى:</strong> {{ $conv->receiver->name }} 
+                    <span class="badge badge-secondary">{{ $conv->receiver->role == 1 ? 'طبيب' : 'مريض' }}</span>
+                </p>
+            </div>
+            <div class="text-right">
+                <a href="{{ route('chat.show', $conv->id) }}" class="btn btn-sm btn-primary mb-2">
+                    <i class="fas fa-eye"></i> عرض
+                </a>
+                <form action="{{ route('AdminChat.destroy', $conv->id) }}" method="POST" >
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذه المحادثة؟')">
+                        <i class="fas fa-trash-alt"></i> حذف
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 @endforeach

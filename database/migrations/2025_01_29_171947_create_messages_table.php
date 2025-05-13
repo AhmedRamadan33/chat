@@ -15,12 +15,13 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('conversation_id')->constrained();
+            $table->foreignId('conversation_id')->constrained('conversations')->onDelete('cascade');
             $table->string('sender_email');
             $table->string('receiver_email');
             $table->boolean('read')->default(0)->nullable();
             $table->text('body')->nullable();
             $table->string('type')->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

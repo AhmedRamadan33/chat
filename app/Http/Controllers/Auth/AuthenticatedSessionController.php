@@ -14,7 +14,7 @@ class AuthenticatedSessionController extends Controller
 {
     public function index()
     {
-        return view('Dashboard.Admin.index');
+        return view('livewire.chat.main');
     }
     
     public function create(): View
