@@ -9,7 +9,7 @@
                 </div>
 
             </div><!-- main-chat-header -->
-            <div class="main-chat-body" id="ChatBody">
+            <div class="main-chat-body" id="ChatBody" style="height: 400px; overflow-y: auto;">
                 <div class="content-inner">
                     @foreach ($messages as $message)
                         <div class="media {{ $message->sender_email == $authUser->email ? 'flex-row-reverse' : '' }}">
@@ -25,7 +25,8 @@
 
                                         {{-- أيقونة الحذف --}}
                                         @if ($message->sender_email == $authUser->email)
-                                            <form method="POST" action="{{ route('UserMessages.destroy', $message->id) }}"
+                                            <form method="POST"
+                                                action="{{ route('UserMessages.destroy', $message->id) }}"
                                                 onsubmit="return confirm('هل أنت متأكد من حذف الرسالة؟')"
                                                 style="display:inline;">
                                                 @csrf
